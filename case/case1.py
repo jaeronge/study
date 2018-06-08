@@ -124,3 +124,97 @@ def _pair_list(s):
             continue
         pairs.append(pair)
     return pairs
+
+
+def block(h, w, board):
+    transpose = [*zip(*board)]
+    transpose = [list(n[::-1]) for n in transpose]
+    # print("board:", transpose)
+    del_pos_set = _get_del_pos(transpose)
+    del_count = 0
+    while len(del_pos_set) > 0:
+        del_pos_set = _get_del_pos(transpose)
+        del_count += len(del_pos_set)
+        # print("del:", del_pos_set)
+        cleared_board = _clear_board(transpose, del_pos_set)
+        # print("cleared:", cleared_board)
+        transpose = cleared_board
+    print("del count is:", del_count)
+
+
+def _clear_board(_transpose, _del_pos_set):
+    _del_pos_set = sorted(_del_pos_set, reverse=True)
+    for p in _del_pos_set:
+        _transpose[int(p[0])].pop(int(p[1]))
+    return _transpose
+
+
+def _get_del_pos(_transpose):
+    pre = None
+    del_pos_set = set()
+    for idx, line in enumerate(_transpose):
+        if idx == 0:
+            pre = line
+            continue
+        for n in range(0, len(line) - 1):
+            try:
+                if pre[n] == line[n] and pre[n] == pre[n + 1] and pre[n] == line[n + 1]:
+                    del_pos_set.add(str(idx - 1) + str(n))
+                    del_pos_set.add(str(idx - 1) + str(n + 1))
+                    del_pos_set.add(str(idx) + str(n))
+                    del_pos_set.add(str(idx) + str(n + 1))
+            except IndexError as e:
+                continue
+
+        pre = line
+
+    return del_pos_set
+
+
+# 진법 n, 미리 구할 숫자의 갯수 t, 게임에 참가하는 인원 m, 튜브의 순서 p
+def number_n(n, t, m, p):
+    result = ""
+    if m == p:
+        p = 0
+    if n == 2:
+        x = bin(0)
+    elif n == 16:
+        x = hex(0)
+    count = 0
+    while len(result) < t:
+        num = x[2:]
+        # print("num:", num)
+        for y in num:
+            count += 1
+            # print("count:", count)
+
+            if count % m == p:
+                # print("y:", y)
+                result += str(y)
+                if len(result) >= t:
+                    break
+        if n == 2:
+            x = bin(int(x,2) + int(bin(1),2))
+        elif n == 16:
+            x = hex(int(x, 16) + int(hex(1), 16))
+
+    print("Result:", result.upper())
+
+
+def my_zip(s):
+    result = []
+    dict = [c for c in "ABCDEFGHIJKLMNOPQRSTUVWXYZ"]
+    pre = ""
+    while len(s) > 0:
+        # print("s is:", s)
+        for p in range(len(s), 0, -1):
+            if s[0:p] in dict:
+                # print("0:p is:", s[0:p])
+                # print("index:", dict.index(s[0:p]) + 1)
+                result.append(dict.index(s[0:p]) + 1)
+                dict.append(s[0:p+1])
+                # print("dict:", dict)
+                s = s.replace(s[0:p], "", 1)
+                break
+
+    print(result)
