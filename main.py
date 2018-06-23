@@ -1,12 +1,17 @@
 # -*- coding: utf-8 -*-
 
 from case import case1
+from case import algorithm
 
 
 if __name__ == "__main__":
-    case1.my_zip("KAKAO")   # [11, 1, 27, 15]
-    case1.my_zip("TOBEORNOTTOBEORTOBEORNOT")   # [20, 15, 2, 5, 15, 18, 14, 15, 20, 27, 29, 31, 36, 30, 32, 34]
-    case1.my_zip("ABABABABABABABAB")   # [1, 2, 27, 29, 28, 31, 30]
+    array = [[1, 2, 3],
+             [4, 5, 6],
+             [7, 8, 9]]
+    print(algorithm.earthworm(array))
+    # case1.my_zip("KAKAO")   # [11, 1, 27, 15]
+    # case1.my_zip("TOBEORNOTTOBEORTOBEORNOT")   # [20, 15, 2, 5, 15, 18, 14, 15, 20, 27, 29, 31, 36, 30, 32, 34]
+    # case1.my_zip("ABABABABABABABAB")   # [1, 2, 27, 29, 28, 31, 30]
 
     # case1.number_n(2,4,2,1) # "0111"
     # case1.number_n(16,16,2,1) # "02468ACE11111111"
