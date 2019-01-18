@@ -5,7 +5,7 @@ Python Study
 
 1. http://tcpschool.com/python/intro_characteristic
 
-2. 스샷
+2. ![python-java](./images/python-java.png)
 
 3. 나무위키: https://namu.wiki/w/Python
 
